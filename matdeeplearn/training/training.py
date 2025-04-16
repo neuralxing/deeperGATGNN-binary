@@ -39,11 +39,12 @@ def train(model, optimizer, loader, loss_method, rank):
         data = data.to(rank)
         optimizer.zero_grad()
         output = model(data)
-        # 若损失函数是 binary_cross_entropy，应用 Sigmoid 激活函数
         if loss_method == 'binary_cross_entropy':
-            output = torch.sigmoid(output)
-        # print(data.y.shape, output.shape)
-        loss = getattr(F, loss_method)(output, data.y)
+            loss_fn = torch.nn.BCEWithLogitsLoss()
+            loss = loss_fn(output, data.y)
+        else:
+            # print(data.y.shape, output.shape)
+            loss = getattr(F, loss_method)(output, data.y)
         loss.backward()
         loss_all += loss.detach() * output.size(0)
 
@@ -67,8 +68,10 @@ def evaluate(loader, model, loss_method, rank, out=False):
         with torch.no_grad():
             output = model(data)
             if loss_method == 'binary_cross_entropy':
-                output = torch.sigmoid(output)
-            loss = getattr(F, loss_method)(output, data.y)
+                loss_fn = torch.nn.BCEWithLogitsLoss()
+                loss = loss_fn(output, data.y)
+            else:
+                loss = getattr(F, loss_method)(output, data.y)
             loss_all += loss * output.size(0)
             if out == True:
                 if count == 0:
@@ -125,6 +128,7 @@ def trainer(
             train_sampler.set_epoch(epoch)
         ##Train model
         train_error = train(model, optimizer, train_loader, loss, rank=rank)
+        print(train_error)
         if rank not in ("cpu", "cuda"):
             torch.distributed.reduce(train_error, dst=0)
             train_error = train_error / world_size

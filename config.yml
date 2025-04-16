@@ -108,7 +108,7 @@ Processing:
 Training:     
     #Index of target column in targets.csv
     target_index: 0
-    #Loss functions (from pytorch) examples: l1_loss, mse_loss, binary_cross_entropy
+    #Loss functions (from pytorch) examples: l1_loss, mse_loss, binary_cross_entropy,binary_cross_entropy_with_logits
     loss: "binary_cross_entropy"       
     #Ratios for train/val/test split out of a total of 1  
     train_ratio: 0.8

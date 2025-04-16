@@ -5,7 +5,7 @@
          'parallel': 'False',
          'reprocess': 'False',
          'save_model': 'True',
-         'seed': 228677,
+         'seed': 579753,
          'write_output': 'True'},
  'Models': {'act': 'softplus',
             'batch_norm': 'True',

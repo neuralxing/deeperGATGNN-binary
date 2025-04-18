@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": [ "--data_path=../data/train_P10000_U20000", "--model=DEEP_GATGNN_demo","--format=cif"]
+            "args": [ "--data_path=../data/mp_Fe_test", "--model=DEEP_GATGNN_demo","--format=cif","--epochs=10"]
         }
     ]
 }

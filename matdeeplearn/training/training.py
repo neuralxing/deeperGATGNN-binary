@@ -72,6 +72,8 @@ def evaluate(loader, model, loss_method, rank, out=False):
                 loss = loss_fn(output, data.y)
             else:
                 loss = getattr(F, loss_method)(output, data.y)
+            if loss_method == "binary_cross_entropy" or "binary_cross_entropy_with_logits":
+                output = torch.nn.Sigmoid()(output)                
             loss_all += loss * output.size(0)
             if out == True:
                 if count == 0:
@@ -128,11 +130,9 @@ def trainer(
             train_sampler.set_epoch(epoch)
         ##Train model
         train_error = train(model, optimizer, train_loader, loss, rank=rank)
-        print(train_error)
         if rank not in ("cpu", "cuda"):
             torch.distributed.reduce(train_error, dst=0)
             train_error = train_error / world_size
-        print(epoch,train_error)
         ##Get validation performance
         if rank not in ("cpu", "cuda"):
             dist.barrier()
@@ -219,7 +219,7 @@ def trainer(
 ##Write results to csv file
 def write_results(output, filename):
     shape = output.shape
-    with open(filename, "w") as f:
+    with open(filename, "w", newline="") as f:
         csvwriter = csv.writer(f)
         for i in range(0, len(output)):
             if i == 0:

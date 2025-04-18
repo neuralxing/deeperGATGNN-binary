@@ -10,7 +10,13 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": [ "--data_path=../data/mp_Fe_test", "--model=DEEP_GATGNN_demo","--format=cif","--epochs=10"]
+            //"args": [ "--data_path=../data/mp_Fe_test", "--model=DEEP_GATGNN_demo","--format=cif","--epochs=10"]
+            //train 
+            // python main.py --data_path=../data/mp_noFe_train --model=DEEP_GATGNN_demo --parallel=False --epochs=100 --format=cif --run_mode=Training --batch_size=128
+            //"args": ["--data_path=../data/mp_noFe_train", "--model=CGCNN_demo","--epochs=100","--parallel=True","--format=cif","--run_mode=Training","--batch_size=512"]
+            //predict, model_path实际上是模型文件名，路径固定为“split/id_prop_bag_i”
+            //python main.py --data_path=../data/mp_Fe_test --job_name=job_name --run_mode=Predict --model_path=my_model.pth --format=cif
+            "args": ["--data_path=../data/mp_Fe_test", "--job_name=job_name", "--run_mode=Predict", "--model_path=my_model.pth","--format=cif"]
         }
     ]
 }

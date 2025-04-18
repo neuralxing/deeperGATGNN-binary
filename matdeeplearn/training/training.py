@@ -155,10 +155,10 @@ def trainer(
                     model_best = copy.deepcopy(model.module)
                     torch.save(
                         {
-                            "state_dict": model.state_dict(),
+                            "state_dict": model_best.state_dict(),
                             "optimizer_state_dict": optimizer.state_dict(),
                             "scheduler_state_dict": scheduler.state_dict(),
-                            "full_model": model,
+                            "full_model": model_best,
                         },
                         filename,
                     )
@@ -166,10 +166,10 @@ def trainer(
                     model_best = copy.deepcopy(model)
                     torch.save(
                         {
-                            "state_dict": model.state_dict(),
+                            "state_dict": model_best.state_dict(),
                             "optimizer_state_dict": optimizer.state_dict(),
                             "scheduler_state_dict": scheduler.state_dict(),
-                            "full_model": model,
+                            "full_model": model_best,
                         },
                         filename,
                     )
@@ -179,10 +179,10 @@ def trainer(
                 model_best = copy.deepcopy(model.module)
                 torch.save(
                     {
-                        "state_dict": model.state_dict(),
+                        "state_dict": model_best.state_dict(),
                         "optimizer_state_dict": optimizer.state_dict(),
                         "scheduler_state_dict": scheduler.state_dict(),
-                        "full_model": model,
+                        "full_model": model_best,
                     },
                     filename,
                 )
@@ -190,10 +190,10 @@ def trainer(
                 model_best = copy.deepcopy(model)
                 torch.save(
                     {
-                        "state_dict": model.state_dict(),
+                        "state_dict": model_best.state_dict(),
                         "optimizer_state_dict": optimizer.state_dict(),
                         "scheduler_state_dict": scheduler.state_dict(),
-                        "full_model": model,
+                        "full_model": model_best,
                     },
                     filename,
                 )
